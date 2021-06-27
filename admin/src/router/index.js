@@ -25,7 +25,17 @@ const routes = [
         path: '/article/detail',
         name: "detail",
         component: resolve => require(['../views/article/detail.vue'],resolve)
-      }
+      },
+      {
+        path: '/envelope',
+        name:"envelop",
+        component: resolve => require(['../views/envelope/list.vue'],resolve)
+      },
+      {
+        path: '/envelope/detail',
+        name: "envelopDetail",
+        component: resolve => require(['../views/envelope/detail.vue'],resolve)
+      },
     ]
   },
   
