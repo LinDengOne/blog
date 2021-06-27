@@ -1,0 +1,12 @@
+@url=http://localhost:3000
+@json=Content-Type: application/json 
+POST {{url}}/admin/api/article
+{{json}}
+
+{
+    "title":"first",
+    "content":"+"
+}
+
+###
+GET {{url}}/admin/api/article

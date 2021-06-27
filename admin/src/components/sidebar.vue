@@ -41,22 +41,22 @@ export default {
             list: [
                 {
                     icon: 'el-icon-sunrise-1',
-                    title: 'My world',
+                    title: 'Hello world',
                     path: '/',
                 },
                 {
                     icon: 'el-icon-heavy-rain',
-                    title: 'Little mood',
+                    title: '文章列表',
                     path: '/article',
                 },
                 {
                     icon: 'el-icon-lightning',
-                    title: 'A letter',
+                    title: '短语',
                     path: '/envelope',
                 },
                 {
                     icon: 'el-icon-sunrise-1',
-                    title: 'Comment',
+                    title: '评论',
                     path: '/comment',
                 },
                 {
@@ -66,17 +66,17 @@ export default {
                 },
                 {
                     icon: 'el-icon-sunrise-1',
-                    title: 'Subscribe',
+                    title: '订阅',
                     path: '/subscribe',
                 },
                 {
                     icon: 'el-icon-sunset',
-                    title: 'Setting',
+                    title: '设置',
                     path: '/setting',
                 },
                 {
                     icon: 'el-icon-moon-night',
-                    title: 'Leave',
+                    title: '登出',
                 }
             ],
             activeIndex:'',

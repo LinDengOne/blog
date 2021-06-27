@@ -24,7 +24,7 @@ a{
 	text-decoration: none;
 }
 body{
-	overflow: hidden;
+	//overflow: hidden;
 }
 #app{
     padding: 0 15px;
