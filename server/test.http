@@ -9,4 +9,4 @@ POST {{url}}/admin/api/article
 }
 
 ###
-GET {{url}}/admin/api/article
+GET {{url}}/web/api/article?page=2
