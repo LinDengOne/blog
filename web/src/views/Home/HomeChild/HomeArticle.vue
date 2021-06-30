@@ -26,7 +26,7 @@
               </div>
           </div>
           <div class="more" @click="getArticleList">
-              <load-more/>
+              <load-more :status="status" />
           </div>
       </div>
   </div>
@@ -40,7 +40,7 @@ export default {
     data() {
         return {
             page: 1,
-
+            status: 'more',
             infoIcon: [{
 				icon: 'icon-text',
 				name: 'words',
@@ -67,18 +67,24 @@ export default {
         this.getArticleList ()
     },
     methods: {
+    
         async getArticleList () {
-            this.$store.commit('setStatus', 'loading')
+            //this.$store.commit('setStatus', 'loading')
+            this.status = 'loading'
             const page = this.page
-            const result = await this.$http.get('Article',page)
+            const result = await this.$http.get('/article', {
+              params: { page }
+                })
             const total = result.data.body.totalPage
             const data = result.data.body.data
             //console.log(result);
             if(this.page > total){
-            this.$store.commit('setStatus', 'nomore')
+           // this.$store.commit('setStatus', 'nomore')
+           this.status = 'nomore'
             } else {
             this.requestDatas.push(...data)
-            this.$store.commit('setStatus', 'more')
+            this.status = 'more'
+           // this.$store.commit('setStatus', 'more')
             this.page++
             }
         },

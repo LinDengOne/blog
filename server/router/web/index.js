@@ -5,6 +5,7 @@ module.exports = app => {
     let Article = require('../../models/article')
     let RequestResult = require('../../plugins/requestResult')
     router.get('/article', async (req, res) => {
+        //console.log(req.query.page)
         const page = req.query.page || 1
         const result = await Promise.all([
             Article.countDocuments(),
