@@ -11,10 +11,13 @@
 <script>
 export default {
  name:'loadmore',
+ props:{
+     status: String
+ },
  computed:{
-     status(){
+    /*  status(){
          return this.$store.state.status
-     }
+     } */
  }
 }
 </script>
