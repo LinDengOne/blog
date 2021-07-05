@@ -14,6 +14,7 @@
       />
 
       <section>
+          <Date @getDate="getDate" :originalDate="data.time" />
           <el-input 
             v-model="data.describe" 
             placeholder="文章摘要"
@@ -54,7 +55,11 @@
 </template>
 
 <script>
+import Date from '../../components/date.vue'
 export default {
+    components: {
+        Date,
+    },
     data() {
         return {
             id: '',                     //文章id
@@ -188,7 +193,10 @@ export default {
                     //this.$infoUpdate()
                 }
             })
-        }    
+        },
+        getDate(val){
+            this.data.time = val
+        },    
         
         
 
