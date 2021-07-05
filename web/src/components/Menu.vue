@@ -2,7 +2,7 @@
   <div class="nav">
       <ul class="list">
           <li v-for="(item, index) in list" :key="index">
-              <a>{{item.title}}</a>
+              <a  @click="toPage(item.url)">{{item.title}}</a>
           </li>
       </ul>
   </div>
@@ -40,6 +40,11 @@ export default {
 				}
 			],
         }
+    },
+    methods: {
+        toPage(url){
+			this.$router.push(`/${url}`)
+		},
     },
 }
 </script>

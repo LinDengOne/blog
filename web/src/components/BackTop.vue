@@ -11,7 +11,8 @@ export default {
     mixins: [scrollMixin],
     methods: {
         backTop(){
-            this.$setScroll('top')
+            const div = document.querySelector('#app')
+            div.scrollIntoView({ behavior: 'smooth' })
         }
     },
 

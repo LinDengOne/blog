@@ -12,7 +12,7 @@
                          >
               </div>
               <div class="info">
-                  <div class="time">{{ item.time }}</div>
+                  <div class="time">{{ item.time.date }}</div>
                   <div class="title">
                       <a href="">{{ item.title }}</a>
                   </div>
