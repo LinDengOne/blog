@@ -15,7 +15,11 @@ Vue.config.productionTip = false
 Vue.prototype.$http = http
 Vue.use(ElementUI);
 
+// 高亮富文本
 
+import VueHighlightJS from 'vue-highlightjs'
+import 'highlight.js/styles/atom-one-dark.css'
+Vue.use(VueHighlightJS)
 //全局方法
 new Vue({
   router,

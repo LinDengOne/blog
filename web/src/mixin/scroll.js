@@ -8,7 +8,8 @@ export default {
         }
     },
     beforeMount() {
-        this.scrollFn = this.$throttle(this.handleScroll, 100)
+        this.scrollFn = this.$throttle(this.handleScroll, 150)
+        // this.scrollFn = this.handleScroll
         window.addEventListener('scroll', this.scrollFn)
         this.handleScroll()
     },

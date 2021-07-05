@@ -6,6 +6,7 @@ module.exports = app => {
     let RequestResult = require('../../plugins/requestResult')
     let DateFormat = require('../../plugins/dateFormat')
 
+    //文章列表
     router.get('/article', async (req, res) => {
         //console.log(req.query.page)
         const page = req.query.page || 1
@@ -15,9 +16,11 @@ module.exports = app => {
         ])
 
         result[1].forEach(item => item._doc['time'] = DateFormat(item.time))
+        //转换时间格式
         /* if (req.query.from) {
 
         } */
+        //文章列表分类
         if (req.query.from) {
             result[1] = result[1].reduce((total, item)=>{
                 const [ , year, date] = /(\d+)\/(\d+)/.exec(item.time.date)
@@ -36,6 +39,23 @@ module.exports = app => {
         res.send(RequestResult(1, data))
     })
 
+    //查看文章
+    router.get('/article/:id', async (req, res) => {
+        const id = req.params.id
+        const data = await Article.findOneAndUpdate({
+            _id: id
+        }, {
+            $inc: { 'read': 1 }
+        }, {
+            new: true //查找更新后的数据
+        })
+        if(data) {
+            data._doc['time'] = DateFormat(data.time)
+            res.send(RequestResult(1, data))
+        } else {
+            res.send(RequestResult())
+        }
+    })
 
 
 

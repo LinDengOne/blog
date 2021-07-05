@@ -19,7 +19,7 @@
                                 :key="child_idx"
                             >
                                 <div class="item-l">
-                                    <div class="img" @click="viewArticle(child_val.id)">
+                                    <div class="img" @click="viewArticle(child_val._id)">
                                         <img :src="child_val.image.url || '../../assets/img/other/default.jpg'">
                                     </div>
                                     <div class="tit">
@@ -106,6 +106,9 @@ export default {
       }
       } 
     },
+    viewArticle(id) {
+        this.$router.push(`/detail/${id}`)
+    }
   },
 };
 </script>

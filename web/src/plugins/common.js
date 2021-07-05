@@ -5,7 +5,7 @@ exports.install = function(Vue, option) {
                 if(flag) {
                     flag = false;
                     setTimeout(() => {
-                        fn.apply(this, args);
+                        fn.apply(this,args);
                         flag = true
                     }, delay);
                 }
