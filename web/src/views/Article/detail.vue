@@ -12,15 +12,18 @@
                 <span></span>
             </div>    
             <div class="content html javascript" v-html="data.contentHtml"></div>
+            <comment-input :id="data._id" :title="data.title"/>
       </div>
   </div>
 </template>
 
 <script>
 //import "highlight.js/styles/monokai-sublime.css";
+import commentInput from './ArticleChild/commentInput.vue'
 import scrollMixin from '../../mixin/scroll'
 export default {
     mixins: [scrollMixin],
+    components:{commentInput},
     data() {
         return {
            data: {},

@@ -24,6 +24,10 @@ Vue.config.productionTip = false
 	}
 	return form
 }
+// 时间格式获取
+Vue.prototype.$getDate = (data) => {
+	return `${data.time} ${data.month.en} ${data.day.on}`
+}
 
 new Vue({
   router,

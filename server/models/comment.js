@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema ({
     id: Number,                 //id
-    article_id: Number,         //文章id
+    article_id: String,         //文章id
     name: String,               //昵称
     email: String,              //邮箱
     image: Number,              //头像
@@ -16,7 +16,7 @@ const schema = new mongoose.Schema ({
         type: Number,
         default: 1
     },
-    parent_id: Number,          //一级评论ID
+    parent_id: String,          //一级评论ID
     reply_name: String,         //回复对象
     reply_email: String,         //回复邮箱
 

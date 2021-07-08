@@ -36,6 +36,11 @@ const routes = [
         name: "envelopDetail",
         component: resolve => require(['../views/envelope/detail.vue'],resolve)
       },
+      {
+        path: '/comment',
+        name: "comment",
+        component: resolve => require(['../views/comment/comment.vue'],resolve)
+      },
     ]
   },
   

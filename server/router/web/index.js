@@ -3,6 +3,8 @@ module.exports = app => {
     const router = express.Router()
 
     let Article = require('../../models/article')
+    let Comment = require('../../models/comment')
+
     let RequestResult = require('../../plugins/requestResult')
     let DateFormat = require('../../plugins/dateFormat')
 
@@ -57,7 +59,15 @@ module.exports = app => {
         }
     })
 
-
+    //发表评论
+    router.post('/comment', async (req, res) => {
+        const result = await Comment.create(req.body.data)
+        if(result.type === 1) {
+            result._doc['child'] = [];
+        }
+        result._doc['time'] = DateFormat(result.time)
+        res.send(RequestResult(1,result))
+    })
 
 
     app.use('/web/api', router)

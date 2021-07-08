@@ -23,7 +23,7 @@
                                         <img :src="child_val.image.url || '../../assets/img/other/default.jpg'">
                                     </div>
                                     <div class="tit">
-                                        <span @click="viewArticle(child_val.id)">{{ child_val.title }}</span>
+                                        <span @click="viewArticle(child_val._id)">{{ child_val.title }}</span>
                                         <span>{{ child_val.like }} LIKE / {{ child_val.read }} READ</span>
                                     </div>
                                 </div>

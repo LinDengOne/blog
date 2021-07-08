@@ -12,6 +12,7 @@ app.use('/uploads', express.static(__dirname + '/uploads'))
 require('./plugins/db')(app)
 require('./router/admin/article')(app)
 require('./router/admin/upload')(app)
+require('./router/admin/comment')(app)
 require('./router/web/index')(app)
 app.listen(3000, () => {
     console.log('http://loclhost:3000');
