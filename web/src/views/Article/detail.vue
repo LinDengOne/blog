@@ -12,7 +12,8 @@
                 <span></span>
             </div>    
             <div class="content html javascript" v-html="data.contentHtml"></div>
-            <comment-input :id="data._id" :title="data.title"/>
+            <comment-input :id="data._id" :title="data.title" @SourceClick="passParam"/>
+            <comment-box :commentTotal="commentTotal" :commentData="commentData"></comment-box>
       </div>
   </div>
 </template>
@@ -21,12 +22,14 @@
 //import "highlight.js/styles/monokai-sublime.css";
 import commentInput from './ArticleChild/commentInput.vue'
 import scrollMixin from '../../mixin/scroll'
+import CommentBox from './ArticleChild/commentBox.vue'
 export default {
     mixins: [scrollMixin],
-    components:{commentInput},
+    components:{commentInput, CommentBox},
     data() {
         return {
            data: {},
+           commentData:{},
            commentTotal: 0,
            contentHeight: 0,
            clientHeight: 0, 
@@ -47,6 +50,7 @@ export default {
         }
     },
     async created() {
+        await this.getComment(this.$route.params.id)
         //console.log(this.$route.params.id);
         await this.getArticle(this.$route.params.id)
     },
@@ -63,6 +67,16 @@ export default {
            const res = await this.$http.get('/article/'+id)
            this.data = res.data.body
            //console.log(this.data);
+        },
+        async getComment(id) {
+            const res = await this.$http.get('/comment/'+id)
+            //console.log(res);
+            this.commentData = res.data.body.data
+            this.commentTotal = res.data.body.total
+            console.log(this.data);
+            },
+        passParam() {
+            this.getComment(this.$route.params.id)
         },
         getHeight() {
             const domList = ['.content', '.stuff', '.title']

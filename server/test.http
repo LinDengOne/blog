@@ -9,4 +9,4 @@ POST {{url}}/admin/api/article
 }
 
 ###
-GET {{url}}/web/api/article/60e16487d820ee0f04dfc2cd
+GET {{url}}/web/api/comment/60e50b07e3cec7081006fa65

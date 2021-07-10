@@ -16,8 +16,10 @@ const schema = new mongoose.Schema ({
         type: Number,
         default: 1
     },
-    parent_id: String,          //一级评论ID
-    reply_name: String,         //回复对象
+    parent_id: {type:String,
+    default:'x'},       //一级评论ID
+    reply_name: {type:String,
+    default:'x'},          //回复对象
     reply_email: String,         //回复邮箱
 
     admin: Boolean          

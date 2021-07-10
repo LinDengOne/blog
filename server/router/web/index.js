@@ -68,7 +68,39 @@ module.exports = app => {
         result._doc['time'] = DateFormat(result.time)
         res.send(RequestResult(1,result))
     })
+    
+    //获取评论
+    router.get('/comment/:id', async (req, res) => {
+        const id = req.params.id
+        const result = await Comment.find({article_id: id})
+        const data = result.reduce((total,item) => {
+            item._doc['time'] = DateFormat(item.time)
+            if(item.type === 1) {
+                item._doc['child'] = []
+                total.push(item)
+            } else {
+                total.forEach( i => {
+                    if(i._id == item.parent_id){
+                        i._doc['child'].push(item)
+                    }
+                })
+            }
+            return total
+        },[])
+        const total = result.length
+        res.send(RequestResult(1,{data,total}))
 
+    })
+    //点赞
+    router.put('/article_like/:id', async (req, res) => {
+        let data = await Article.updateOne({
+                '_id': req.params.id
+            }, {
+                $inc: { 'like': 1 }
+            })
+        res.send(data)
+    })
+    
 
     app.use('/web/api', router)
 }

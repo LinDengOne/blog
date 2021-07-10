@@ -1,11 +1,14 @@
 <template>
-  <div class="comment-form">
+  <div class="comment-form" id="comment">
       <el-input 
       v-model.trim="form.name" placeholder="Name"
       maxlength="10" show-word-limit class="input-box"
       >
       </el-input>
-
+        <div class="reply-name" v-if="isReply">
+            <span class="">@{{ replyObj.reply_name }}</span>
+            <span class="iconfont icon-close" @click="cancel"></span>
+        </div>
       <textarea 
         class="textarea" 
         placeholder="What do you want to say..." 
@@ -19,19 +22,44 @@
 </template>
 
 <script>
+import  store from '../../../store/index.js'
 import Button from '../../../components/Button'
 export default {
     name: 'commentInput',
     components: {Button},
     props: ['id', 'title'],
+    computed:{
+        isReply: {
+            get(){
+                return this.$store.state.isReply
+            },
+            set() {
+
+            }
+            
+        },
+        replyObj: {
+            get() {
+                 return this.$store.state.replyObj
+            },
+            set(){
+
+            }
+           
+        }
+    },
     data() {
         return {
             form: {},
-            isReply: false,
+            //isReply: false,
+            //flash:[],
             rows: 4
         }
     },
     methods: {
+        reflash() {
+            Vue.set(flash,1,1)
+        },
         comment() {
             //console.log(this.id);
             const LoadingStartTime = new Date().getTime()
@@ -56,9 +84,24 @@ export default {
                 data,
                 type: this.isReply ? 2 : 1,
             }
+            //console.log(params);
             this.$http.post('comment', params).then(res => {
-                console.log(res);
-            })
+                //console.log(res);
+                this.$message({
+                type: 'success',
+                message: '评论成功~~',
+                offset: 60
+                })
+                this.$emit('SourceClick', 'this is source data')
+                })
+                this.form.content = ''
+        },
+        async getComment(id) {
+            const res = await this.$http.get('/comment/'+id)
+            //console.log(res);
+            this.data = res.data.body.data
+            this.commentTotal = res.data.body.total
+            //console.log(this.data);
         },
         dateFormat(){
             const date = new Date();
@@ -73,7 +116,12 @@ export default {
                 opt[i] = opt[i].length == 1 ? opt[i].padStart(2, "0") : opt[i]
             }
             return `${opt.Y}/${opt.M}/${opt.D} ${opt.H}:${opt.m}`
-        }
+        },
+        // 取消回复
+        cancel(){ 
+            store.commit('setisReply', false)
+            store.commit('setreplyObj', {})
+        },
     
         
     },

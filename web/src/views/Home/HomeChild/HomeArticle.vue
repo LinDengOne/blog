@@ -5,7 +5,7 @@
                 v-for="(item, index) in requestDatas"
                 :key="index"
           >
-              <div class="img-box" >
+              <div class="img-box" @click="toArticle(item._id)">
                   <img  
                         src="../../../assets/img/other/default.jpg"
                          alt=""
@@ -14,7 +14,7 @@
               <div class="info">
                   <div class="time">{{ item.time.date }}</div>
                   <div class="title">
-                      <a href="">{{ item.title }}</a>
+                      <a @click="toArticle(item._id)" href="">{{ item.title }}</a>
                   </div>
                   <div class="describe">{{ item.describe }}</div>
                   <div class="stuff">
@@ -88,6 +88,9 @@ export default {
             this.page++
             }
         },
+        toArticle(id){
+			this.$router.push(`/detail/${id}`)
+		},
         loadMoreData(){
 
         }
