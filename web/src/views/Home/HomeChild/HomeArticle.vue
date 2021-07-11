@@ -314,6 +314,55 @@ export default {
             }
         }
     }
+    @media screen and (max-width: 900px){
+        .content{
+			width: 100%;
+			.post{
+				margin-top: 60px;
+				background: var(--color-bg-primary);
+				border-bottom: 1px solid var(--color-border-1);
+				.img-box{
+					width: 100%;
+					height: auto;
+					display: block;
+					text-align: center;
+					border: none;
+					img{
+						width: 680px;
+						max-width: 100%;
+					}
+				}
+				.info{
+					position: static;
+					width: 96%;
+					padding: 40px 20px 40px;
+					margin: auto;
+					border: none;
+					background: var(--color-bg-primary);
+					height: auto;
+					.stuff{
+						position: static;
+						margin: 20px 0 0 -6px;
+					}
+				}
+			}
+		}
+    }
+    @media screen and (max-width: 780px){
+        .content{
+			width: 100%;
+			.post{
+				.img-box{
+					width: 100%;
+					height: auto;
+					border-radius: 0;
+				}
+			}
+		}
+    }
+    @media screen and (max-width: 480px){
+        
+    }
 }
 
 </style>
