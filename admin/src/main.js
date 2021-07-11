@@ -24,6 +24,15 @@ Vue.config.productionTip = false
 	}
 	return form
 }
+//获取信息
+Vue.prototype.$infoUpdate = () => {
+    http.get('/info').then(res => {
+        if(res && res.data.status == 1){
+            const data = res.data.body;
+            store.commit('data',data)
+        }
+    })
+}
 // 时间格式获取
 Vue.prototype.$getDate = (data) => {
 	return `${data.time} ${data.month.en} ${data.day.on}`

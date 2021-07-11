@@ -61,8 +61,8 @@ export default {
                 },
                 {
                     icon: 'el-icon-sunrise-1',
-                    title: 'Myself',
-                    path: '/myself',
+                    title: '个人介绍',
+                    path: '/introducing',
                 },
                 {
                     icon: 'el-icon-sunrise-1',

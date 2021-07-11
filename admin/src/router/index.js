@@ -41,6 +41,11 @@ const routes = [
         name: "comment",
         component: resolve => require(['../views/comment/comment.vue'],resolve)
       },
+      {
+        path: '/introducing',
+        name: "introducing",
+        component: resolve => require(['../views/introducing.vue'],resolve)
+      },
     ]
   },
   

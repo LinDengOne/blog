@@ -11,6 +11,7 @@ import './assets/css/iconfont.css'
 import common from'./plugins/common'
 Vue.use(VueLazyload) //懒加载
 Vue.use(common)
+
 Vue.config.productionTip = false
 Vue.prototype.$http = http
 Vue.use(ElementUI);

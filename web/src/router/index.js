@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home/Home.vue'
 import ArticleList from '../views/Article/ArticleList.vue'
 import Detail from '../views/Article/detail.vue'
+import Introducing from '../views/Introducing.vue'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -22,6 +23,11 @@ const routes = [
     path: '/detail/:id',
     name: 'Detail',
     component: Detail
+  },
+  {
+    path: '/introducing',
+    name: 'Introducing',
+    component: Introducing
   }
   
 ]

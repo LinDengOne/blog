@@ -4,6 +4,7 @@ module.exports = app => {
 
     let Article = require('../../models/article')
     let Comment = require('../../models/comment')
+    let Introducing = require('../../models/introducing');
 
     let RequestResult = require('../../plugins/requestResult')
     let DateFormat = require('../../plugins/dateFormat')
@@ -99,6 +100,11 @@ module.exports = app => {
                 $inc: { 'like': 1 }
             })
         res.send(data)
+    })
+    //获取介绍
+    router.get('/introducing', async (req, res) => {
+        const data = await Introducing.findOne()
+        res.send(RequestResult(1,data))
     })
     
 

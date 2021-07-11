@@ -36,7 +36,7 @@ export default {
 				},
 				{
 					title: "About",
-					url: 'about'
+					url: 'introducing'
 				}
 			],
         }

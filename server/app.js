@@ -13,6 +13,9 @@ require('./plugins/db')(app)
 require('./router/admin/article')(app)
 require('./router/admin/upload')(app)
 require('./router/admin/comment')(app)
+require('./router/admin/info')(app)
+require('./router/admin/introducing')(app)
+require('./router/admin/login')(app)
 require('./router/web/index')(app)
 app.listen(3000, () => {
     console.log('http://loclhost:3000');
