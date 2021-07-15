@@ -23,8 +23,8 @@ export default {
 					url: 'rain'
 				},
 				{
-					title: 'Envelope',
-					url: 'envelope'
+					title: 'game',
+					url: 'game'
 				},
 				{
 					title: 'Subscribe',

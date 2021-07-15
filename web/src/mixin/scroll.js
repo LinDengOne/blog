@@ -37,7 +37,16 @@ export default {
         },
         getWin(type) {
             return document.documentElement[type] || document.body[type]
-        }
+        },
+          bottomHandle (isScroll, callback) {
+            // window.onscroll = throttle(scrollChange.bind(null, isScroll, callback), 200)
+            window.addEventListener('scroll', throttleScroll(isScroll, callback), 200)
+        },
+          
+         clearBottomHandle () {
+            window.removeEventListener('scroll', throttleScroll)
+        },
+        throttleScroll(isScroll, callback) {this.$throttle(scrollChange.bind(null, isScroll, callback), 200)}
     },
 
 }

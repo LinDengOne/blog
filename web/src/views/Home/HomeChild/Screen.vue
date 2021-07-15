@@ -8,14 +8,19 @@
             >
         </div>
     </div>
-    <div class="header flex align-center space-between">
+    <div class="header">
         <img src="" alt="">
     </div>
     <div class="misk"></div>
     <div class="info">
-        <div class="time"></div>
+        <div class="time">{{date.month}}  {{date.day}}, {{date.year}}</div>
+		<div class="title">欢迎光临！！
+        <transition name="el-fade-in-linear">
+          <span v-show="!hiddenText" class="tipsText">请向下滚动</span>
+        </transition>
+		</div>
+		<div class="content">眼里有光，心中有爱，一路春暖花开，看淡得失，珍惜拥有，不负时光，不负自己，所有美好，都将如期而至</div>
     </div>
-
   </div>
 </template>
 
@@ -36,6 +41,8 @@ export default {
         let wHeight = document.documentElement.clientHeight
         this.imgWidth = wWidth + 150
         this.imgHeight = wHeight + 150
+		if (wWidth <= 600) { this.imgWidth = 1920 / 1.3; this.imgHeight = 960}
+    	this.getdate()
     },
     mounted() {
         const scene = document.getElementById('scene');
@@ -44,6 +51,29 @@ export default {
 			clipRelativeInput: true,
     })
     },
+	methods: {
+		getdate() {
+			const date = new Date()
+			const year = date.getFullYear()
+			const month = date.getMonth() + 1
+			const day = date.getDate()
+			const result = `${year}-${month}-${day} ${123}`
+			this.date = this.dateHandle(result)
+		},
+		dateHandle(result) {
+			const arr = ['', '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+			let [y, m, other] = result.split("-")
+			// console.log(y,m,other);
+			const d = other.split(" ")[0]
+			m = arr[parseInt(m)]
+			const resultDate = [y, m, d]
+			console.log(resultDate);
+			const keys = ['year', 'month', 'day']
+			const res = {}
+			resultDate.forEach((item, index) => res[keys[index]] = resultDate[index])
+			return res
+		}
+	},
 }
 </script>
 
@@ -81,6 +111,26 @@ export default {
             background-color: rgba(176, 14, 37, 0.7);
             clip-path: polygon(0 0,25% 0,60% 100%,0 100%);
         }
+		.info {
+			position: absolute;
+			top: 54%;
+			left: 10%;
+			color: #fff;
+			width: 30%;
+			transform: translateY(-50%);
+			color: #ffffff;
+			font-size: .5rem;
+			.time {
+			font-size: 14px;
+			}
+			.title {
+			font-size: 1rem;
+			margin: 15px 0 30px;
+			}
+			.content {
+			font-size: 15px;
+			}
+		}
         
     }
     @media screen and (max-width: 900px){
@@ -88,42 +138,10 @@ export default {
 			.misk{
 				clip-path: polygon(0 0, 220px 0, 700px 100%, 0% 100%);
 			}
-			.post{
+			.info{
 				width: 40%;
 				.title a{
 					font-size: 22px;
-				}
-			}
-		}
-		.content{
-			width: 100%;
-			.post{
-				margin-top: 60px;
-				background: var(--color-bg-primary);
-				border-bottom: 1px solid var(--color-border-1);
-				.img-box{
-					width: 100%;
-					height: auto;
-					display: block;
-					text-align: center;
-					border: none;
-					img{
-						width: 680px;
-						max-width: 100%;
-					}
-				}
-				.info{
-					position: static;
-					width: 96%;
-					padding: 40px 20px 40px;
-					margin: auto;
-					border: none;
-					background: var(--color-bg-primary);
-					height: auto;
-					.stuff{
-						position: static;
-						margin: 20px 0 0 -6px;
-					}
 				}
 			}
 		}
@@ -136,7 +154,7 @@ export default {
 			.misk{
 				clip-path: none;
 			}
-			.post{
+			.info{
 				bottom: 8%;
 				left: 5%;
 				top: auto;
@@ -145,40 +163,6 @@ export default {
 			}
 			
 		}
-		.content{
-			width: 100%;
-			.post{
-				.img-box{
-					width: 100%;
-					height: auto;
-					border-radius: 0;
-				}
-			}
-		}
 	}
-	@media screen and (max-width: 480px){
-		.max{
-			.header{
-				padding: 0 24px 0 20px;
-				.logo-img{
-					width: 80px;
-					img{
-						top: 6px
-					}
-				}
-			}
-			.post {
-				.time{
-					display: none;
-				}
-				.title{
-					margin-bottom: 10px;
-				}
-				.describe{
-					font-size: 13px;
-					line-height: 20px;
-				}
-			}
-		}
-	}
+
 </style>

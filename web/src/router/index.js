@@ -4,6 +4,9 @@ import Home from '../views/Home/Home.vue'
 import ArticleList from '../views/Article/ArticleList.vue'
 import Detail from '../views/Article/detail.vue'
 import Introducing from '../views/Introducing.vue'
+import Message from '../views/message/index.vue'
+import Game from '../views/game/index.vue'
+import Rain from '../views/rainy.vue'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -22,13 +25,31 @@ const routes = [
   {
     path: '/detail/:id',
     name: 'Detail',
-    component: Detail
+    component: Detail,
+    meta: {
+      keepAlive: false // 不需要被缓存
+    }
   },
   {
     path: '/introducing',
     name: 'Introducing',
     component: Introducing
-  }
+  },
+  {
+    path: '/message',
+    name: 'message',
+    component: Message
+  },
+  {
+    path: '/game',
+    name: 'game',
+    component: Game
+  },
+  {
+    path: '/rain',
+    name: 'rain',
+    component: Rain
+  },
   
 ]
 
@@ -41,11 +62,15 @@ const router = new VueRouter({
 router.beforeEach((to,from,next) =>{
   store.commit('setLoading',true)
   setTimeout(() => {
-    
-  }, 2000);
-  next()
+    next()
+  }, 300);
+  
 })
+
+ 
+
 router.afterEach((to, from) => {
   store.commit('setLoading',false)
+  document.querySelector("html").setAttribute("style", "overflow: auto !important;")
 })
 export default router

@@ -1,6 +1,6 @@
 <template>
   <div class="out" :class="[changeClass]">
-    <div class="header"  :class="[changeClass]" >
+    <div class="header">
       <div class="left">
           <img @click="toIndex" src="../assets/img/logo.png" alt="">
           <div class="play">
@@ -11,14 +11,20 @@
       </div>
       <div class="mid" :class="musicIcon==='show' ? 'show' : 'hid'">{{midText}}</div>
       <div class="right">
-        <div class="like-hit">
-          <div class="iconfont icon-like " :class="{like: isLike}" @click="$emit('like', isLike)"></div>
+        <div class="like-hit" v-if="showLike">
+          <div class="iconfont icon-like " v-if="showLike" :class="{like: isLike}" @click="onLike"></div>
         </div>
            <router-link :to="{name: 'Introducing'}">
                 <img src="../assets/img/favicon.jpg" alt />
             </router-link>
       </div>
+      <div class="like-hint-box" :class="{likeHint}" v-if="Ilike">
+                <div class="like-hint">点了还想取消？</div>
+                <span></span>
+                <span></span>
+            </div>
     </div>
+    
       <div class="progressBar" :style="{width: progressBarWidth + '%'}"></div>
       <div
         class="music-btn"
@@ -50,6 +56,9 @@ export default {
             type: Boolean,
             default:false
         },
+        Ilike: {
+            type: String,
+        },
         midText: {
             type: String,
             default:'文章列表'
@@ -73,7 +82,8 @@ export default {
             audioDom: '', 
             mid: '',
             timer: '',
-            changeClass:'show'
+            changeClass:'show',
+            likeHint: false
         }
     },
     computed: {
@@ -125,6 +135,20 @@ export default {
                 this.progressBarWidth  = currentTime
             }
         },
+        onLike(){
+            if (this.isLike) {
+                clearTimeout(this.likeTime)
+                this.likeHint = true
+                this.likeTime = setTimeout(() => this.likeHint = false, 2000)
+            } else {
+                //console.log(this.like);
+                this.$http.put(`article_like/${this.Ilike}`).then(res => {
+                    this.isLike = true
+                    this.$emit('liked', true)
+                    localStorage.setItem(`like-${this.Ilike}`, true)
+                })
+            }
+        },
         toIndex () {
             this.$router.push({path: '/'})
         },
@@ -152,22 +176,8 @@ export default {
     height: 50px;
     z-index: 999;
     background-color: #fff;
-    &.show{
-        position: fixed;
-        animation: headShow 0.6s both;
-        box-shadow: 0 1px 8px var(--color-shadw-1);
-        background: #fff;
-    }
-    &.exit{
-        position: fixed;
-        animation: headExit 0.6s both;
-        box-shadow: 0 1px 8px var(--color-shadw-1);
-        background: var(--color-bg-opacity);
-    }
+    
 .header{
-    position: fixed;
-    top: 0;
-    left: 0;
     height: 50px;
     width: 100%;
     color: #666;
@@ -246,8 +256,52 @@ export default {
             border-radius: 50%;
         }
     }
+    .like-hint-box{
+        position: absolute;
+        top: 60px;
+        right: 75px;
+        transition: all .4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        transform-origin: right top;
+        transform: scale(0);
+        opacity: 0;
+        visibility: hidden;
+        .like-hint{
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            background: #ef6c57;
+            color: var(--color-bg-primary);
+            font-size: 13px;
+            width: 210px;
+            height: 110px;
+            line-height: 114px;
+            text-align: center;
+            border-radius: 220px / 120px;
+        }
+        span{
+            position: absolute;
+            top: 13px;
+            right: 13px;
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            background: #ef6b57;  
+            &:last-child{
+                width: 14px;
+                height: 14px;
+                right: 0;
+                top: 0;
+            }
+        }
+        &.likeHint{
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+    }
     
 }
+
     .progressBar{
         position: fixed;
         top: 0;
@@ -304,6 +358,18 @@ export default {
 
   .out {
     position: absolute;
+    &.show{
+        position: fixed;
+        animation: headShow 0.6s both;
+        box-shadow: 0 1px 8px var(--color-shadw-1);
+        background: #fff;
+    }
+    &.exit{
+        position: fixed;
+        animation: headExit 0.6s both;
+        box-shadow: 0 1px 8px var(--color-shadw-1);
+        background: var(--color-bg-opacity);
+    }
   }
   .header {
     position: absolute;

@@ -1,6 +1,6 @@
 <template>
     <div class="container article-list">
-        
+        <Header/>
         <section class="list">
                 <div 
                     class="year-list" 
@@ -41,9 +41,10 @@
 </template>
 
 <script>
+import Header from '../../components/Header.vue';
 import LoadMore from '../../components/LoadMore.vue';
 export default {
-  components: { LoadMore },
+  components: { LoadMore, Header },
   name: "articleList",
   data() {
     return {
@@ -109,7 +110,7 @@ export default {
     viewArticle(id) {
         this.$router.push(`/detail/${id}`)
     }
-  },
+  }, 
 };
 </script>
 

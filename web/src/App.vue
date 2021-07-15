@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <page-loading v-if="loading"></page-loading>
-    <router-view/>
+    <transition name="fade" class="change" mode="out-in">
+        <router-view/>
+    </transition>
   </div>
 </template>
 <script>

@@ -1,7 +1,7 @@
 <template>
   <div class="article">
       <div class="scrollbar"  :style="{ width: postProgress }"></div>
-        <Header/>
+        <Header :showLike="true" :isLike="isLike" :Ilike="data._id" :midText="data.title"/>
         <div class="wraper"  ref="content" v-if="data.time">
             <h1 class="title">{{data.title}}</h1>
             <div class="stuff">
@@ -35,6 +35,7 @@ export default {
            commentTotal: 0,
            contentHeight: 0,
            clientHeight: 0, 
+           isLike: false
         }
     },
     computed: {
@@ -47,48 +48,39 @@ export default {
             }
             const h = this.contentHeight - this.clientHeight + 100
             const n = (100 * (this.scroll_current / h)).toFixed(2)
-            //console.log(n);
             return n < 100 ? n + '%' : '100%'
         }
     },
     async created() {
         await this.getComment(this.$route.params.id)
-        //console.log(this.$route.params.id);
         await this.getArticle(this.$route.params.id)
+    },
+    destroyed() {
+        console.log('销毁');
     },
     mounted() {
         setTimeout(() => {
             this.clientHeight = this.getWin('clientHeight')
             this.contentHeight = this.getHeight()
+            this.isLike = !!localStorage.getItem(`like-${this.data._id}`)
         },1000)
-            //this.isLike = !!localStorage.getItem(`like-${this.data._id}`)
+            
             //console.log(this.clientHeight);
     },
     methods: {
         async getArticle(id) {
            const res = await this.$http.get('/article/'+id)
            this.data = res.data.body
-           //console.log(this.data);
         },
         async getComment(id) {
             const res = await this.$http.get('/comment/'+id)
-            //console.log(res);
             this.commentData = res.data.body.data
             this.commentTotal = res.data.body.total
-            //console.log(this.data);
             },
         passParam() {
             this.getComment(this.$route.params.id)
         },
         getHeight() {
-            /* const domList = ['.content', '.stuff', '.title']
-            console.log(domList); */
-            /* const height = domList.reduce((t, i) => {
-                t += document.querySelector(i).offsetHeight
-                //console.log(t);
-                return t
-            }, 0) */
-            
             const height = this.$refs.content.offsetHeight
             return height
         },
@@ -102,6 +94,9 @@ export default {
     //overflow-x: scroll;
     width: 100%;
     .wraper{
+        padding: 30px;
+        // border: #999 solid;
+        // box-shadow:   10px 0  #999;
         width: 800px;
         margin: auto;
         // background-color: aqua;

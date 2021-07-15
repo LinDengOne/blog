@@ -62,6 +62,9 @@ module.exports = app => {
 
     //发表评论
     router.post('/comment', async (req, res) => {
+        if(!req.body.data.article_id){
+            req.body.data.article_id='message'
+        }
         const result = await Comment.create(req.body.data)
         if(result.type === 1) {
             result._doc['child'] = [];
