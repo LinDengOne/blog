@@ -16,6 +16,16 @@ const schema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    music: {                            // 音乐
+        url: {
+            type: String,
+            default: ''
+        },
+        name: {
+            type: String,
+            default: ''
+        }
+    },       
     image: {                            //封面
         url: {
             type: String,

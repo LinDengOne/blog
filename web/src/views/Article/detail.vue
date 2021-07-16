@@ -1,7 +1,7 @@
 <template>
   <div class="article">
       <div class="scrollbar"  :style="{ width: postProgress }"></div>
-        <Header :showLike="true" :isLike="isLike" :Ilike="data._id" :midText="data.title"/>
+        <Header v-if="isload" :showLike="true" :isLike="isLike" :Ilike="data._id" :midText="data.title" :music="data.music.url"/>
         <div class="wraper"  ref="content" v-if="data.time">
             <h1 class="title">{{data.title}}</h1>
             <div class="stuff">
@@ -35,7 +35,8 @@ export default {
            commentTotal: 0,
            contentHeight: 0,
            clientHeight: 0, 
-           isLike: false
+           isLike: false,
+           isload: false
         }
     },
     computed: {
@@ -71,6 +72,7 @@ export default {
         async getArticle(id) {
            const res = await this.$http.get('/article/'+id)
            this.data = res.data.body
+           this.isload = true
         },
         async getComment(id) {
             const res = await this.$http.get('/comment/'+id)

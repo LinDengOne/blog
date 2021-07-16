@@ -12,7 +12,7 @@
       <div class="mid" :class="musicIcon==='show' ? 'show' : 'hid'">{{midText}}</div>
       <div class="right">
         <div class="like-hit" v-if="showLike">
-          <div class="iconfont icon-like " v-if="showLike" :class="{like: isLike}" @click="onLike"></div>
+          <div class="iconfont icon-like " v-if="showLike" :class="{like: dataIsLike}" @click="onLike"></div>
         </div>
            <router-link :to="{name: 'Introducing'}">
                 <img src="../assets/img/favicon.jpg" alt />
@@ -83,18 +83,19 @@ export default {
             mid: '',
             timer: '',
             changeClass:'show',
-            likeHint: false
+            likeHint: false,
+            dataIsLike: false
         }
     },
     computed: {
         dashOffset() {
             return (1 - this.progressBarWidth / 100) * this.dashArray;
-        }
+        },
     },
     mounted () {
         this.initMusic() // 加载音乐
-        
-                this.$watch('scroll_current', this.scrollStatus, { immediate: true })
+        this.dataIsLike = this.isLike
+        this.$watch('scroll_current', this.scrollStatus, { immediate: true })
             
     },
     created () {
@@ -136,14 +137,14 @@ export default {
             }
         },
         onLike(){
-            if (this.isLike) {
+            if (this.dataIsLike) {
                 clearTimeout(this.likeTime)
                 this.likeHint = true
                 this.likeTime = setTimeout(() => this.likeHint = false, 2000)
             } else {
                 //console.log(this.like);
                 this.$http.put(`article_like/${this.Ilike}`).then(res => {
-                    this.isLike = true
+                    this.dataIsLike = true
                     this.$emit('liked', true)
                     localStorage.setItem(`like-${this.Ilike}`, true)
                 })

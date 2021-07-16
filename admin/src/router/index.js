@@ -46,7 +46,13 @@ const routes = [
         name: "introducing",
         component: resolve => require(['../views/introducing.vue'],resolve)
       },
+      
     ]
+  },
+  {
+    path: '/login',
+    name: "login",
+    component: resolve => require(['../views/login.vue'],resolve)
   },
   
 ]

@@ -23,20 +23,27 @@
             ></el-input>
             <div class="upload-box" v-if="!isUpload">
                 <el-upload
+                    v-for="(item, index) in ['music', 'image']"
+                    :key="index"
                     :show-file-list="false"
-                    action
                     :http-request="uploadChange"
-                    name="image"
-                    multiple
-                    ref="upload"
+                    :name="item"
                     class="upload-item"
+                    ref="upload"
+                    action
                     drag
-                    >
+                >   
+                    <template v-if="item == 'music'">
+                        <i class="el-icon-headset"></i>
+                        <div class="el-upload__text">{{ musicName }}</div>
+                    </template>
+                    <template v-else>
                     <img v-if="data.image.url" :src="data.image.url">
                         <template v-else>
                             <i class="el-icon-picture-outline-round"></i>
                             <div class="el-upload__text">封面图片 (680*440)</div>
                         </template>
+                    </template>
                 </el-upload>
 
             </div>
@@ -70,6 +77,7 @@ export default {
                 describe: '',           // 文章摘要
                 time: '',               // 时间
                 image: {},              // 图片
+                music: {},              // 音乐
             },
             markdownImage: [],          // 编辑器的图片集合
             isUpload: false,            // 是否上传 取反
@@ -165,8 +173,8 @@ export default {
             }
             //上传封面图
             if (!this.isUpload) {
-                const data = this.data['image']
-                console.log(data);
+                for (let i of ['image', 'music']) {
+                    const data = this.data[i]
                 if(data.form) {
                     const res = await this.$http.post('/upload',data.form)
                     if(res.data.status == 1){
@@ -177,6 +185,7 @@ export default {
                             this.$message.error(res.data.body.message)
                             this.fullscreenLoading = false
                             return
+                        }
                     }
                 }
             }
@@ -224,6 +233,63 @@ section{
 }
 .upload-box{
     display: flex;
-    margin: 10px 0px 6px;
+    margin: 10px -7px 6px;
+    .upload-item{
+        width: 50%;
+        max-width: 360px;
+        margin: 0 7px;
+        ::v-deep .el-upload{
+            width: 100%;
+            .el-upload-dragger{
+                width: 100%;
+                .el-icon-picture-outline-round,
+                .el-icon-headset{
+                    font-size: 46px;
+                    color: #c0c4cc;
+                    margin: 42px 0 14px;
+                    line-height: 50px;
+                    transition: all .3s;
+                }
+                .el-upload__text{
+                    color: #98999c;
+                    transition: all .3s;
+                }
+                &:hover{
+                    .el-icon-picture-outline-round, 
+                    .el-upload__text, 
+                    .el-icon-headset{
+                        color: #409EFF;
+                    }
+                }
+            }
+        }
+    }
+    img{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 600px) {
+    .markdown-body{
+        height: 90vh !important;
+        box-shadow: none !important;
+    }
+    section{
+        margin: 10px 0;
+        box-shadow: none;
+    }
+    .submit{
+        width: 150px;
+        height: 36px;
+        margin: 0 0 20px;
+        line-height: 36px;
+        padding: 0;
+    }
+    .upload-box .upload-item ::v-deep .el-upload .el-upload-dragger{
+        height: 130px;
+        .el-icon-picture-outline-round, .el-icon-headset{
+            font-size: 36px;
+            margin: 22px 0 10px;
+        }
+    }
 }
 </style>

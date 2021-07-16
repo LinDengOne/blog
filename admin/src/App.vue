@@ -7,7 +7,6 @@
 <script>
 export default {
     created() {
-        this.$infoUpdate()
     }	
 }
 </script>

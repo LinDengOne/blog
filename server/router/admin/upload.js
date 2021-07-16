@@ -11,7 +11,7 @@ module.exports = app => {
      */
     const storage = multer.diskStorage({
         destination: (req, file,cb) => {
-            //const name = file.mim
+            const name = file.mimetype.includes('image') ? 'image' : 'music';
             cb(null,`./uploads`)
         },
         filename: (req, file, cb) => {

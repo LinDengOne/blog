@@ -10,7 +10,8 @@ const http = axios.create({
 http.interceptors.request.use(
     config => {
         // 设置token
-        const token = localStorage.getItem("Authorization");
+        const token = localStorage.getItem('Authorization');
+        console.log(token);
         config.headers.Authorization = `Bearer ${token}`;
         // config.headers['Cache-Control'] = 'max-age=60';
 

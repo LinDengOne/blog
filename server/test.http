@@ -1,12 +1,21 @@
 @url=http://localhost:3000
 @json=Content-Type: application/json 
-POST {{url}}/admin/api/article
+POST {{url}}/admin/api/register
 {{json}}
 
 {
-    "title":"first",
-    "content":"+"
+    "username":"admin",
+    "password":"wxq000131",
+    "captcha":"15"
+}
+###
+POST {{url}}/admin/api/login
+{{json}}
+
+{
+    "username":"admin",
+    "password":"wxq000131"
 }
 
 ###
-GET {{url}}/web/api/comment/60e50b07e3cec7081006fa65
+GET {{url}}/admin/api/captcha
