@@ -27,14 +27,14 @@ const routes = [
         component: resolve => require(['../views/article/detail.vue'],resolve)
       },
       {
-        path: '/envelope',
-        name:"envelop",
-        component: resolve => require(['../views/envelope/list.vue'],resolve)
+        path: '/messageboard',
+        name:"messageboard",
+        component: resolve => require(['../views/messageBoard.vue'],resolve)
       },
       {
-        path: '/envelope/detail',
-        name: "envelopDetail",
-        component: resolve => require(['../views/envelope/detail.vue'],resolve)
+        path: '/setting',
+        name: "setting",
+        component: resolve => require(['../views/setting.vue'],resolve)
       },
       {
         path: '/comment',

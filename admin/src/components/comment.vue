@@ -50,7 +50,7 @@ export default {
 
             const data = {
                 name: getAdminInfo('name'),
-                email: getAdminInfo('email'),
+                //email: getAdminInfo('email'),
                 content: this.content,
                 time: this.$dateFormat(),
                 image: 1,
@@ -71,9 +71,9 @@ export default {
                 url: `${this.info.base['address']}/${data.topic_id}`,
             }
 
-            this.$request(() => this.$http.post('comment', { 
+             this.$http.post('comment', { 
                     data, 
-                    email 
+                    //email 
                 }).then(res => {
                     if(res.data.status === 1){
                         this.$message({
@@ -86,7 +86,7 @@ export default {
                 }).catch(err => {
                     this.$message.error('出错了，刷新重试一下');
                     this.close()
-                }))
+                })
         },
         close(){
             this.content = ''

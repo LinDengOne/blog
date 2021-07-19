@@ -51,8 +51,8 @@ export default {
                 },
                 {
                     icon: 'el-icon-lightning',
-                    title: '短语',
-                    path: '/envelope',
+                    title: '留言',
+                    path: '/messageboard',
                 },
                 {
                     icon: 'el-icon-sunrise-1',
@@ -77,6 +77,7 @@ export default {
                 {
                     icon: 'el-icon-moon-night',
                     title: '登出',
+                    path: '/leave'
                 }
             ],
             activeIndex:'',

@@ -5,9 +5,25 @@ module.exports = app => {
     let Article = require('../../models/article')
     let Comment = require('../../models/comment')
     let Introducing = require('../../models/introducing');
+    //let Info = require('../../models/info');
+    let View = require('../../models/view');
 
     let RequestResult = require('../../plugins/requestResult')
     let DateFormat = require('../../plugins/dateFormat')
+
+    router.use(async (req,res,next) => {
+        //req.session['view'] = 1
+        //console.log(req.sessionID);
+        //console.log(req.headers);
+        const data = req.session['view']
+        //console.log('data:  '+data);
+        const date = new Date()
+        if(!data) {
+            req.session['view'] = 1
+            View.create(dete)
+        }
+        next()
+    })
 
     //文章列表
     router.get('/article', async (req, res) => {
@@ -104,6 +120,7 @@ module.exports = app => {
             })
         res.send(data)
     })
+    
     //获取介绍
     router.get('/introducing', async (req, res) => {
         const data = await Introducing.findOne()

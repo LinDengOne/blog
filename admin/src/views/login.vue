@@ -54,7 +54,7 @@ export default {
   },
 data(){
         return {
-              type: 1, // 0是登陆 1 是注册
+              type: 0, // 0是登陆 1 是注册
               data: {
                 username: '',
                 password: '',
@@ -110,7 +110,7 @@ data(){
       return res
     }
       if (!result) return
-      this.type === 1 && (this.data.id = JSON.parse(localStorage.getItem('userInfo')).id)
+      // this.type === 1 && (this.data.id = JSON.parse(localStorage.getItem('userInfo'))._id)
       this.submit ()
     },
     submit () {
@@ -128,27 +128,13 @@ data(){
       this.$http.post('/login', this.data).then(res => {
         if(res.data.status == 1) {
           localStorage.setItem("Authorization", res.data.body.token)
-          const token = localStorage.getItem("Authorization");
-          console.log(res.data);
-          console.log(token);
+          this.$store.commit('updataId',res.data.body.info)
           this.$message.success('success')
           this.$router.push('/')
         } else {
           this.$message.error(res.data.body)
         }
       })
-
-      /* login(account, password).then( async res => {
-        localStorage.setItem('token', res.data.data)
-        this.$store.commit("setIsToken", true)
-        this.$message.success('登陆成功, 1秒后即将返回首页')
-        const result = await whoami()
-        localStorage.setItem('userInfo', JSON.stringify(result.data.data))
-        setTimeout(() => {
-          this.$router.push({ path: '/' })
-        }, 1000)
-      }).catch(err => {
-      }) */
     },
     // 注册
     enroll () {

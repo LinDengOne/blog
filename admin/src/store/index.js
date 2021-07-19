@@ -21,6 +21,10 @@ export default new Vuex.Store({
     updataInfo(state, data){
         state.$data.info = data
     },
+    // 更新id
+    updataId(state, data){
+        state.$data.admin = data
+    },
      // 动态导航
      setMenu(state, data){
       state.menu = data

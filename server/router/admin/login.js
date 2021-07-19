@@ -8,7 +8,7 @@ module.exports = app => {
     const jwt = require('jsonwebtoken');
     let RequestResult = require('../../plugins/requestResult')
 
-    app.use('/captcha', async (req,res,next) => {
+    router.use('/captcha', async (req,res,next) => {
         if (req.url !== '/captcha') {
             await next()
             return
@@ -96,6 +96,7 @@ module.exports = app => {
                 })
                 res.send(RequestResult(1, {
                     message: '登录成功',
+                    info: docs[0],
                     token
                 }))
             } else {

@@ -2,13 +2,25 @@ const express = require('express')
 const expressJwt = require("express-jwt");
 const session = require("express-session");
 app = express()
-app.use(require('cors')())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+/* const cors = require('cors')
 
+app.use( cors( ) ) */
 //静态资源
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
+app.all('*', function (req, res, next) {
+    let originHeader=req.headers.origin;
+    res.header("Access-Control-Allow-Origin",originHeader);
+    // res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By", ' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    res.header("Access-Control-Allow-Credentials", true);
+    next(); 
+})
 /**
  * 验证token
  * 跳过用户接口
@@ -40,12 +52,14 @@ app.use((err, req, res, next) => {
 //session
 app.use(session({
     secret :  'secret', // 对session id 相关的cookie 进行签名
-    resave : true,
+    resave : false,
     saveUninitialized: false, // 是否保存未初始化的会话
+    rolling:true,
     cookie : {
         maxAge : 1000 * 60 * 3, // 设置 session 的有效时间，单位毫秒
     },
 }));
+
 
 
 //路由

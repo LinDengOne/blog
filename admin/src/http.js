@@ -3,15 +3,17 @@ import router from './router'
 
 const http = axios.create({
     baseURL: 'http://localhost:3000/admin/api',
-    timeout: 120000
+    timeout: 120000,
 })
+
+http.defaults.withCredentials=true;
 
 // request 拦截器
 http.interceptors.request.use(
     config => {
         // 设置token
         const token = localStorage.getItem('Authorization');
-        console.log(token);
+        //console.log(token);
         config.headers.Authorization = `Bearer ${token}`;
         // config.headers['Cache-Control'] = 'max-age=60';
 
